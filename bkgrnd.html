@@ -1,0 +1,156 @@
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Currículum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css?v=2" />
+  </head>
+  <body>
+    <div class="page" id="cv">
+      <div class="fx" aria-hidden="true">
+        <div class="fx__grid"></div>
+        <div class="fx__orb"></div>
+        <div class="fx__ring"></div>
+      </div>
+
+      <header class="header hero">
+        <div class="header__left">
+          <div class="hero__badge">
+            <span class="badge">OPEN TO WORK</span>
+            <span class="badge badge--soft">PORTFOLIO</span>
+            <span class="badge badge--soft">PDF READY</span>
+          </div>
+          <h1 class="name">Tu Nombre</h1>
+          <p class="headline">Rol / Especialidad · Ciudad, País</p>
+        </div>
+        <div class="header__right">
+          <a class="contact" href="#">correo@ejemplo.com</a>
+          <span class="dot">·</span>
+          <a class="contact" href="#">+52 000 000 0000</a>
+          <span class="dot">·</span>
+          <a class="contact" href="#">portfolio.com</a>
+        </div>
+      </header>
+
+      <main class="grid">
+        <aside class="sidebar">
+          <section class="card">
+            <h2 class="section-title">Perfil</h2>
+            <p class="muted">
+              2–3 líneas de resumen. Aquí va una descripción breve que se vea bien.
+              El objetivo es que el diseño se sienta limpio y con jerarquía.
+            </p>
+          </section>
+
+          <section class="card">
+            <h2 class="section-title">Habilidades</h2>
+            <div class="chips">
+              <span class="chip">Skill 1</span>
+              <span class="chip">Skill 2</span>
+              <span class="chip">Skill 3</span>
+              <span class="chip">Skill 4</span>
+              <span class="chip">Skill 5</span>
+              <span class="chip">Skill 6</span>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2 class="section-title">Idiomas</h2>
+            <ul class="list">
+              <li><span class="k">Español</span><span class="v">Nativo</span></li>
+              <li><span class="k">Inglés</span><span class="v">B2</span></li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h2 class="section-title">Links</h2>
+            <ul class="links">
+              <li><a href="#">LinkedIn</a></li>
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Behance / Dribbble</a></li>
+            </ul>
+          </section>
+        </aside>
+
+        <section class="content">
+          <section class="card card--flat">
+            <h2 class="section-title">Experiencia</h2>
+
+            <article class="item">
+              <div class="item__top">
+                <div>
+                  <h3 class="item__title">Puesto · Empresa</h3>
+                  <p class="item__meta">Ciudad · Modalidad</p>
+                </div>
+                <div class="item__time">2024 — Actual</div>
+              </div>
+              <ul class="bullets">
+                <li>Logro/impacto en una línea, con foco en resultados.</li>
+                <li>Otra contribución relevante, corta y fácil de escanear.</li>
+                <li>Tecnologías / herramientas (si aplica).</li>
+              </ul>
+            </article>
+
+            <article class="item">
+              <div class="item__top">
+                <div>
+                  <h3 class="item__title">Puesto · Empresa</h3>
+                  <p class="item__meta">Ciudad · Modalidad</p>
+                </div>
+                <div class="item__time">2022 — 2024</div>
+              </div>
+              <ul class="bullets">
+                <li>Responsabilidad principal en una línea.</li>
+                <li>Mejora/optimización: % o métrica (opcional).</li>
+              </ul>
+            </article>
+          </section>
+
+          <section class="card card--flat">
+            <h2 class="section-title">Proyectos</h2>
+            <article class="item item--compact">
+              <div class="item__top">
+                <div>
+                  <h3 class="item__title">Proyecto Destacado</h3>
+                  <p class="item__meta">Descripción corta de 1 línea.</p>
+                </div>
+                <div class="item__time"><a href="#">link</a></div>
+              </div>
+            </article>
+            <article class="item item--compact">
+              <div class="item__top">
+                <div>
+                  <h3 class="item__title">Otro Proyecto</h3>
+                  <p class="item__meta">Descripción corta de 1 línea.</p>
+                </div>
+                <div class="item__time"><a href="#">link</a></div>
+              </div>
+            </article>
+          </section>
+
+          <section class="card card--flat">
+            <h2 class="section-title">Educación</h2>
+            <article class="item item--compact">
+              <div class="item__top">
+                <div>
+                  <h3 class="item__title">Carrera / Certificación</h3>
+                  <p class="item__meta">Institución</p>
+                </div>
+                <div class="item__time">2018 — 2022</div>
+              </div>
+            </article>
+          </section>
+        </section>
+      </main>
+    </div>
+    <script src="./script.js?v=2" defer></script>
+  </body>
+</html>

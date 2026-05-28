@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Perfil de Sistemas Operativos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- MAIN -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- MONO -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#06070b;
+      --panel:#0d1017;
+      --line:rgba(255,255,255,.08);
+      --soft:rgba(255,255,255,.04);
+
+      --text:#f5f7fa;
+      --muted:#7f8796;
+
+      --accent:#d6ff3f;
+
+      --mono:'IBM Plex Mono', monospace;
+      --sans:'Inter', sans-serif;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      width:100%;
+      height:100%;
+      background:var(--bg);
+      overflow:hidden;
+      font-family:var(--sans);
+      color:var(--text);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+
+      background:
+      radial-gradient(circle at top left,
+      rgba(214,255,63,.08),
+      transparent 30%),
+
+      radial-gradient(circle at bottom right,
+      rgba(80,120,255,.10),
+      transparent 30%);
+
+      pointer-events:none;
+    }
+
+    .noise{
+      position:fixed;
+      inset:0;
+      opacity:.03;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+      pointer-events:none;
+      mix-blend-mode:overlay;
+    }
+
+    .shell{
+      width:100%;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .topbar,
+    .footer{
+      padding:18px 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .topbar{
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(
+      180deg,
+      rgba(255,255,255,.02),
+      rgba(255,255,255,0));
+      backdrop-filter:blur(10px);
+    }
+
+    .btn{
+      border:1px solid rgba(214,255,63,.28);
+      background:rgba(214,255,63,.06);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:999px;
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      cursor:pointer;
+      transition:transform .25s ease, border .25s ease, background .25s ease;
+      white-space:nowrap;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(214,255,63,.55);
+      background:rgba(214,255,63,.10);
+    }
+
+    .footer{
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-family:var(--mono);
+      font-size:12px;
+      background:linear-gradient(
+      0deg,
+      rgba(255,255,255,.02),
+      rgba(255,255,255,0));
+      backdrop-filter:blur(10px);
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .brand strong{
+      font-family:var(--sans);
+      font-size:14px;
+      letter-spacing:.02em;
+    }
+
+    .brand span{
+      font-family:var(--mono);
+      color:var(--muted);
+      font-size:11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .contact-row{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      font-family:var(--mono);
+      font-size:12px;
+      color:#c8ced8;
+    }
+
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      padding:9px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .cap-group{
+      margin-top:14px;
+    }
+
+    .cap-title{
+      font-size:10px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-family:var(--mono);
+      margin-bottom:10px;
+    }
+
+    .container{
+      width:100%;
+      flex:1;
+      padding:28px;
+
+      display:grid;
+
+      grid-template-columns:
+      320px
+      1fr;
+
+      gap:18px;
+    }
+
+    /* LEFT */
+
+    .sidebar{
+      border:1px solid var(--line);
+      background:linear-gradient(
+      180deg,
+      rgba(255,255,255,.03),
+      rgba(255,255,255,.01));
+
+      border-radius:24px;
+
+      padding:28px;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+
+      backdrop-filter:blur(10px);
+    }
+
+    .top-label{
+      font-size:11px;
+      letter-spacing:.24em;
+      color:var(--accent);
+      font-family:var(--mono);
+
+      margin-bottom:24px;
+    }
+
+    .name{
+      font-size:44px;
+      line-height:.95;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .role{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+
+      max-width:220px;
+    }
+
+    .section{
+      margin-top:38px;
+    }
+
+    .section-title{
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:18px;
+      font-family:var(--mono);
+    }
+
+    .stack{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .chip{
+      border:1px solid var(--line);
+      padding:10px 14px;
+      border-radius:999px;
+
+      font-size:12px;
+      color:#c8ced8;
+
+      background:rgba(255,255,255,.02);
+    }
+
+    .meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:14px;
+
+      font-size:13px;
+    }
+
+    .meta span:last-child{
+      color:var(--muted);
+      font-family:var(--mono);
+    }
+
+    .bottom{
+      margin-top:40px;
+      border-top:1px solid var(--line);
+      padding-top:18px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .status{
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      font-size:12px;
+      color:#aab1bc;
+      font-family:var(--mono);
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
+
+      box-shadow:
+      0 0 12px var(--accent);
+    }
+
+    .year{
+      color:var(--muted);
+      font-size:12px;
+      font-family:var(--mono);
+    }
+
+    /* RIGHT */
+
+    .main{
+      display:grid;
+      grid-template-rows:
+      auto
+      1fr;
+
+      gap:18px;
+    }
+
+    .hero{
+      border:1px solid var(--line);
+      border-radius:24px;
+
+      padding:28px;
+
+      position:relative;
+      overflow:hidden;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(255,255,255,.04),
+      rgba(255,255,255,.01));
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+
+      background:
+      linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.02),
+      transparent);
+
+      transform:translateX(-100%);
+      animation:scan 8s linear infinite;
+    }
+
+    @keyframes scan{
+      to{
+        transform:translateX(100%);
+      }
+    }
+
+    .hero-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:40px;
+    }
+
+    .hero-title{
+      font-size:72px;
+      line-height:.9;
+      font-weight:700;
+
+      max-width:720px;
+    }
+
+    .hero-info{
+      text-align:right;
+      min-width:220px;
+    }
+
+    .hero-info div{
+      margin-bottom:12px;
+      color:var(--muted);
+      font-size:13px;
+      font-family:var(--mono);
+    }
+
+    .grid{
+      display:grid;
+
+      grid-template-columns:
+      repeat(2,1fr);
+
+      gap:18px;
+    }
+
+    .module{
+      border:1px solid var(--line);
+      border-radius:24px;
+
+      padding:24px;
+
+      position:relative;
+      overflow:hidden;
+
+      background:
+      linear-gradient(
+      180deg,
+      rgba(255,255,255,.03),
+      rgba(255,255,255,.01));
+
+      transition:
+      border .3s ease,
+      transform .3s ease,
+      background .3s ease;
+    }
+
+    .module:hover{
+      transform:translateY(-4px);
+
+      border-color:
+      rgba(214,255,63,.22);
+
+      background:
+      linear-gradient(
+      180deg,
+      rgba(214,255,63,.06),
+      rgba(255,255,255,.01));
+    }
+
+    .module:focus-within{
+      border-color:rgba(214,255,63,.22);
+    }
+
+    .module::before{
+      content:"";
+      position:absolute;
+
+      top:0;
+      left:0;
+
+      width:100%;
+      height:1px;
+
+      background:
+      linear-gradient(
+      90deg,
+      transparent,
+      rgba(214,255,63,.5),
+      transparent);
+
+      opacity:.3;
+    }
+
+    .module-id{
+      font-size:11px;
+      letter-spacing:.2em;
+      color:var(--accent);
+      font-family:var(--mono);
+
+      margin-bottom:18px;
+    }
+
+    .module-title{
+      font-size:28px;
+      font-weight:600;
+
+      margin-bottom:12px;
+    }
+
+    .module-text{
+      color:#c4cad4;
+      line-height:1.7;
+      font-size:14px;
+
+      max-width:90%;
+    }
+
+    .tagline{
+      position:absolute;
+      right:24px;
+      top:24px;
+
+      color:var(--muted);
+      font-size:11px;
+      letter-spacing:.18em;
+      font-family:var(--mono);
+    }
+
+    .timeline{
+      margin-top:22px;
+
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .timeline-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      border-top:1px solid var(--soft);
+
+      padding-top:14px;
+    }
+
+    .timeline-item span:first-child{
+      font-size:14px;
+      color:#dce1e8;
+    }
+
+    .timeline-item span:last-child{
+      font-size:11px;
+      color:var(--muted);
+      font-family:var(--mono);
+    }
+
+    @media(max-width:1100px){
+
+      body{
+        overflow:auto;
+      }
+
+      .container{
+        grid-template-columns:1fr;
+        height:auto;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-title{
+        font-size:52px;
+      }
+
+      .hero-top{
+        flex-direction:column;
+      }
+
+      .hero-info{
+        text-align:left;
+      }
+    }
+
+    @media(max-width:720px){
+
+      html,
+      body{
+        overflow:auto;
+      }
+
+      .container{
+        padding:16px;
+        gap:14px;
+      }
+
+      .topbar,
+      .footer{
+        padding:14px 16px;
+      }
+
+      .contact-row{
+        justify-content:flex-start;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .sidebar{
+        padding:20px;
+        border-radius:20px;
+      }
+
+      .top-label{
+        margin-bottom:18px;
+      }
+
+      .name{
+        font-size:36px;
+      }
+
+      .section{
+        margin-top:28px;
+      }
+
+      .hero{
+        padding:20px;
+        border-radius:20px;
+      }
+
+      .hero-title{
+        font-size:44px;
+        max-width:none;
+      }
+
+      .hero-top{
+        gap:18px;
+      }
+
+      .hero-info{
+        min-width:0;
+      }
+
+      .module{
+        padding:18px;
+        border-radius:20px;
+      }
+
+      .module-title{
+        font-size:22px;
+      }
+
+      .module-text{
+        max-width:none;
+      }
+    }
+
+    @media(max-width:420px){
+
+      .container{
+        padding:12px;
+      }
+
+      .topbar,
+      .footer{
+        padding:12px;
+      }
+
+      .name{
+        font-size:32px;
+      }
+
+      .role{
+        max-width:none;
+      }
+
+      .hero-title{
+        font-size:38px;
+      }
+
+      .chip{
+        padding:9px 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .hero::after{
+        animation:none;
+      }
+
+      .module,
+      .btn{
+        transition:none;
+      }
+
+      .module:hover,
+      .btn:hover{
+        transform:none;
+      }
+    }
+
+    @media print{
+
+      html,
+      body{
+        background:#ffffff;
+        color:#111;
+        overflow:visible;
+      }
+
+      body::before,
+      .noise,
+      .hero::after{
+        display:none !important;
+      }
+
+      .topbar,
+      .footer{
+        border:none;
+        background:transparent;
+        backdrop-filter:none;
+      }
+
+      .btn{
+        display:none;
+      }
+
+      .container{
+        padding:0;
+        gap:14px;
+      }
+
+      .sidebar,
+      .hero,
+      .module{
+        box-shadow:none;
+        border:1px solid rgba(0,0,0,.12);
+      }
+
+      .module:hover{
+        transform:none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div class="shell">
+
+  <header class="topbar">
+    <div class="brand">
+      <strong>Alberto García Zurita</strong>
+      <span>Perfil Operativo · ES-MX</span>
+    </div>
+
+    <div class="contact-row">
+      <div class="pill">Residencia: Villahermosa, Tabasco</div>
+      <div class="pill">Tel: 9932171855</div>
+      <div class="pill">the@unknownshoppers.com</div>
+      <button class="btn" type="button" onclick="window.print()">Descargar PDF</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div>
+
+      <div class="top-label">
+        PERFIL ACTIVO
+      </div>
+
+      <div class="name">
+        ALBERTO<br>
+        GARCÍA ZURITA
+      </div>
+
+      <div class="role">
+        Sistemas operativos, flujos de inteligencia,
+        monitoreo en tiempo real y extracción automatizada de datos.
+      </div>
+
+      <div class="section">
+
+        <div class="section-title">
+          Infraestructura
+        </div>
+
+        <div class="cap-group">
+          <div class="cap-title">Backend</div>
+          <div class="stack">
+            <div class="chip">Ruby on Rails</div>
+            <div class="chip">Python</div>
+          </div>
+        </div>
+
+        <div class="cap-group">
+          <div class="cap-title">Frontend</div>
+          <div class="stack">
+            <div class="chip">Next.js</div>
+            <div class="chip">Tailwind</div>
+          </div>
+        </div>
+
+        <div class="cap-group">
+          <div class="cap-title">Datos</div>
+          <div class="stack">
+            <div class="chip">PostgreSQL</div>
+            <div class="chip">SQL</div>
+          </div>
+        </div>
+
+        <div class="cap-group">
+          <div class="cap-title">Cloud</div>
+          <div class="stack">
+            <div class="chip">Firebase</div>
+            <div class="chip">Vercel</div>
+          </div>
+        </div>
+
+        <div class="cap-group">
+          <div class="cap-title">Operación</div>
+          <div class="stack">
+            <div class="chip">ERP</div>
+            <div class="chip">Monitoreo</div>
+            <div class="chip">Scraping</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <div class="section-title">
+          Red
+        </div>
+
+        <div class="meta">
+          <span>GitHub</span>
+          <span>ACTIVO</span>
+        </div>
+
+        <div class="meta">
+          <span>LinkedIn</span>
+          <span>EN LÍNEA</span>
+        </div>
+
+        <div class="meta">
+          <span>Portafolio</span>
+          <span>EN VIVO</span>
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <div class="section-title">
+          Educación
+        </div>
+
+        <div class="meta">
+          <span>Colegio Arjí (VHSA)</span>
+          <span>BÁSICA</span>
+        </div>
+
+        <div class="meta">
+          <span>CECC (CDMX)</span>
+          <span>SUPERIOR</span>
+        </div>
+
+        <div class="meta">
+          <span>AKAMAYA (Cancún, CDMX)</span>
+          <span>ESPECIALIZACIÓN</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="bottom">
+
+      <div class="status">
+        <div class="dot"></div>
+        SISTEMA ACTIVO
+      </div>
+
+      <div class="year">
+        2026
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <section class="hero">
+
+      <div class="hero-top">
+
+        <div class="hero-title">
+          SISTEMAS<br>
+          OPERATIVOS<br>
+          EN TIEMPO REAL
+        </div>
+
+        <div class="hero-info">
+
+          <div>
+            MX / LATAM
+          </div>
+
+          <div>
+            INTELIGENCIA DE SISTEMAS
+          </div>
+
+          <div>
+            INFRAESTRUCTURA EN VIVO
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="grid">
+
+      <!-- SECURITY -->
+
+      <div class="module">
+
+        <div class="tagline">
+          HISTÓRICO (1 AÑO)
+        </div>
+
+        <div class="module-id">
+          MODULE_01
+        </div>
+
+        <div class="module-title">
+          Seguridad e Inteligencia
+        </div>
+
+        <div class="module-text">
+          Plataforma de inteligencia para operaciones, validación y seguimiento.
+          Barrido de placas / REPUVE y monitoreo automatizado de información.
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <span>Plataforma de Inteligencia</span>
+            <span>EN VIVO</span>
+          </div>
+
+          <div class="timeline-item">
+            <span>Barrido de Placas / REPUVE</span>
+            <span>VALIDACIÓN</span>
+          </div>
+
+          <div class="timeline-item">
+            <span>Monitoreo de Noticias</span>
+            <span>AUTOMATIZADO</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SISTEMAS ERP -->
+
+      <div class="module">
+
+        <div class="tagline">
+          OPERACIÓN
+        </div>
+
+        <div class="module-id">
+          MODULE_02
+        </div>
+
+        <div class="module-title">
+          Sistemas ERP
+        </div>
+
+        <div class="module-text">
+          Inventarios vivos con sincronización de pruebas.
+          Inspecciones y actividades con trazabilidad de punta a punta.
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <span>Inventarios Vivos</span>
+            <span>SINCRONIZADO</span>
+          </div>
+
+          <div class="timeline-item">
+            <span>Pruebas y Sincronización</span>
+            <span>CONTINUA</span>
+          </div>
+
+          <div class="timeline-item">
+            <span>Inspecciones</span>
+            <span>TRAZABLE</span>
+          </div>
+
+          <div class="timeline-item">
+            <span>Actividades</span>
+            <span>TRAZABLE</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- NEGOCIO -->
+
+      <div class="module">
+
+        <div class="tagline">
+          SECTOR EMPRESARIAL
+        </div>
+
+        <div class="module-id">
+          MODULE_03
+        </div>
+
+        <div class="module-title">
+          Sistemas CRM
+        </div>
+
+        <div class="module-text">
+          Sistemas CRM para operación comercial.
+          Proyectos activos en sector empresarial: POS, evaluaciones y seguimiento de desempeño.
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <span>POS</span>
+            <span>OPERACIÓN</span>
+          </div>
+
+          <div class="timeline-item">
+            <span>Evaluaciones</span>
+            <span>SEGUIMIENTO</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>
